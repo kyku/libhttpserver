@@ -295,6 +295,16 @@ unsigned short http_request::get_requestor_port() const
     return http::get_port(conninfo->client_addr);
 }
 
+connection_info *http_request::get_connection_info() const
+{
+	const MHD_ConnectionInfo *conninfo = MHD_get_connection_info(
+			underlying_connection,
+			MHD_CONNECTION_INFO_SOCKET_CONTEXT
+	);
+
+	return static_cast<connection_info*>(conninfo->socket_context);
+}
+
 std::ostream &operator<< (std::ostream &os, const http_request &r)
 {
     os << r.get_method() << " Request [user:\"" << r.get_user() << "\" pass:\"" << r.get_pass() << "\"] path:\""

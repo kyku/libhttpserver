@@ -37,6 +37,7 @@ namespace httpserver
 {
 
 class webserver;
+class connection_info;
 
 namespace http
 {
@@ -208,6 +209,18 @@ class http_request
                 const std::string& password,
                 int nonce_timeout, bool& reload_nonce
         ) const;
+
+
+        /**
+         * Returns the underlying MHD connection.
+         * @return pointer to connection instance
+         */
+        MHD_Connection *get_underlying_connection() const
+        {
+            return underlying_connection;
+        }
+
+        connection_info *get_connection_info() const;
 
         friend std::ostream &operator<< (std::ostream &os, http_request &r);
 
