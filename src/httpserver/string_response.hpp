@@ -81,6 +81,11 @@ class string_response : public http_response
             return *this;
         }
 
+        const std::string &get_response() const
+        {
+            return content;
+        }
+
         ~string_response()
         {
         }
